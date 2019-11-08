@@ -1,5 +1,6 @@
 package br.ufpi.ed;
 
+import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -17,39 +18,62 @@ public class Principal extends JFrame{
 		setSize(700, 500);
 		setLocationRelativeTo(null);
 		
-		if(tempoBinaria != null) criarBinaria();
+		if(tempoBinaria[1] != 0) criarBinaria();
 		else criarSequencial();
 		setVisible(true);
 	}
 
 	public static void experimentoBS(int num) {
-		BuscaSequencialTS<Integer, Integer> tsBS = new BuscaSequencialTS<Integer, Integer>();
-		tsBS.preencher(num);
-		Integer[] chavesBS = tsBS.retornaVetor();
-		Integer aux;
-		for(int i=0; i<10; i++) {
-			for(int j=0; j<num; j++) {
-				aux = tsBS.get(chavesBS[j]);
-			}
+		Random rd = new Random();
+		SequentialSearchST<Integer, Integer> tsBS = new SequentialSearchST<Integer, Integer>();
+		int chave;
+		//busca correta
+		for (int i = 0; i<num; i++) {
+			do {
+				chave = rd.nextInt(num);
+			}while(tsBS.contains(chave));
+            tsBS.put(chave, i);
+        }
+		
+		for(int j=0; j<10; j++) {
+			for (Integer s : tsBS.keys())
+				System.out.println(s + " " + tsBS.get(s));
 		}
-		for(int i=0; i<10; i++) {
-			aux = tsBS.get(chavesBS[num]);
-		}
+		
+		
+		//busca incorreta
+		for (int i = 0; i<10; i++) {
+			do {
+				chave = rd.nextInt(num+10);
+			}while(tsBS.contains(chave));
+			System.out.println(chave + " " + tsBS.get(chave));
+        }
+		
 	}
 	
 	public static void experimentoBB(int num) {
-		BuscaBinariaTS<Integer, Integer> tsBB = new BuscaBinariaTS<Integer, Integer>(num);
-		tsBB.preencher(num);
-		Integer[] chavesBB = tsBB.getChaves();
-		Integer aux;
-		for(int i=0; i<10; i++) {
-			for(int j=0; j<num; j++) {
-				aux = tsBB.get(chavesBB[j]);
-			}
+		Random rd = new Random();
+		BinarySearchST<Integer, Integer> tsBB = new BinarySearchST<Integer, Integer>(num);
+		int chave;
+		for (int i = 0; i<num; i++) {
+			do {
+				chave = rd.nextInt(num);
+			}while(tsBB.contains(chave));
+            tsBB.put(chave, i);
+        }
+		
+		for(int j=0; j<10; j++) {
+			for (Integer s : tsBB.keys())
+				System.out.println(s + " " + tsBB.get(s));
 		}
-		for(int i=0; i<10; i++) {
-			aux = tsBB.get(chavesBB[num]);
-		}
+		
+		for (int i = 0; i<10; i++) {
+			do {
+				chave = rd.nextInt(num+10);
+			}while(tsBB.contains(chave));
+			System.out.println(chave + " " + tsBB.get(chave));
+        }
+		
 	}
 	
 	public static int n, nInicial,  rep;
@@ -62,7 +86,7 @@ public class Principal extends JFrame{
 			barra.setValue(tempoBinaria[i], "N ="+n, "");
 			n = n*2;
 		}
-		JFreeChart grafico = ChartFactory.createBarChart3D("Teste de Desempenho","Valor de N","Tempo de Execução (segundos)",barra,PlotOrientation.VERTICAL,true,true,false);
+		JFreeChart grafico = ChartFactory.createBarChart3D("Teste de Desempenho (Binária)","Valor de N","Tempo de Execução (segundos)",barra,PlotOrientation.VERTICAL,true,true,false);
 		ChartPanel painel = new ChartPanel(grafico);
 		add(painel);
 	}
@@ -74,7 +98,7 @@ public class Principal extends JFrame{
 			barra.setValue(tempoSequencial[i], "N ="+n, "");
 			n = n*2;
 		}
-		JFreeChart grafico = ChartFactory.createBarChart3D("Teste de Desempenho","Valor de N","Tempo de Execução (segundos)",barra,PlotOrientation.VERTICAL,true,true,false);
+		JFreeChart grafico = ChartFactory.createBarChart3D("Teste de Desempenho (Sequencial)","Valor de N","Tempo de Execução (segundos)",barra,PlotOrientation.VERTICAL,true,true,false);
 		ChartPanel painel = new ChartPanel(grafico);
 		add(painel);
 	}
@@ -106,9 +130,9 @@ public class Principal extends JFrame{
 		case 1:
 			n = nInicial;
 			for(int i=0; i<rep; i++) {
-				Stopwatch tempo = new Stopwatch();
-				experimentoBB(n);
-				tempoSequencial[i] = tempo.elapsedTime();
+				Stopwatch tempo1 = new Stopwatch();
+				experimentoBS(n);
+				tempoSequencial[i] = tempo1.elapsedTime();
 				n=2*n;
 			}
 			break;
