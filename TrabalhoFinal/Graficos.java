@@ -72,55 +72,55 @@ public class Graficos extends JFrame {
 		 *             (Inserção) 
 		 */
 		long timer = System.nanoTime();
-		for (String palavra : palavras) {
+		for (String palavra : arquivo) {
 			v.add(palavra);
 		}
 		tempoInser[0] = System.nanoTime() - timer;
 		
 		timer = System.nanoTime();
-		for (String palavra : palavras) {
+		for (String palavra : arquivo) {
 			l.add(palavra);
 		}
 		tempoInser[1] = System.nanoTime() - timer;
 		
 		timer = System.nanoTime();
-		for (String palavra : palavras) {
+		for (String palavra : arquivo) {
 			a.add(palavra);
 		}
 		tempoInser[2] = System.nanoTime() - timer;
 		
 		timer = System.nanoTime();
-		for (String palavra : palavras) {
+		for (String palavra : arquivo) {
 			hS.add(palavra);
 		}
 		tempoInser[3] = System.nanoTime() - timer;
 		
 		timer = System.nanoTime();
-		for (String palavra : palavras) {
+		for (String palavra : arquivo) {
 			lS.add(palavra);
 		}
 		tempoInser[4] = System.nanoTime() - timer;
 		
 		timer = System.nanoTime();
-		for (String palavra : palavras) {
+		for (String palavra : arquivo) {
 			tS.add(palavra);
 		}
 		tempoInser[5] = System.nanoTime() - timer;
 		
 		timer = System.nanoTime();
-		for (String palavra : palavras) {
+		for (String palavra : arquivo) {
 			hM.put(palavra,0);
 		}
 		tempoInser[6] = System.nanoTime() - timer;
 		
 		timer = System.nanoTime();
-		for (String palavra : palavras) {
+		for (String palavra : arquivo) {
 			lM.put(palavra,0);
 		}
 		tempoInser[7] = System.nanoTime() - timer;
 		
 		timer = System.nanoTime();
-		for (String palavra : palavras) {
+		for (String palavra : arquivo) {
 			tM.put(palavra,0);
 		}
 		tempoInser[8] = System.nanoTime() - timer;
