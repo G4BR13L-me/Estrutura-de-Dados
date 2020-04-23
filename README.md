@@ -1,2 +1,2 @@
-# Estrutura-de-Dados
-Material Pratico
+# Hash Table
+Pratice material
